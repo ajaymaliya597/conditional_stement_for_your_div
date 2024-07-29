@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Div_Colour_Changer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./colour.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="circlescont">
+            <div class="circle blue"></div>
+            <div class="circle green"></div>
+            <div class="circle yellow"></div>
+            <div class="circle red"></div>
+        </div>
+        <select name="make-a-choice" id="lan">
+            <option value="React">React</option>
+            <option value="Django">Django</option>
+            <option value="Angular">Angular</option>
+            <option value="AWS">AWS</option>
+        </select>
+
+        <div class="content">
+            <p class="React">React: React is a popular JavaScript library developed by Facebook for building user interfaces, especially single-page applications where dynamic content is crucial. It allows developers to create reusable UI components, which helps in maintaining a consistent look and feel across applications. React's component-based architecture and virtual DOM enhance performance and provide a responsive user experience. Its rich ecosystem includes tools like React Router for routing and Redux for state management, making it a powerful choice for modern front-end development.</p>
+            <p class="Django">Django: Django is a high-level Python web framework designed to simplify the development of complex, data-driven websites. It emphasizes rapid development and clean, pragmatic design. With its built-in features like an ORM (Object-Relational Mapping), an admin panel, and a robust authentication system, Django reduces the need for repetitive coding and speeds up the development process. Its "batteries-included" philosophy ensures that developers have a wide range of tools at their disposal, making it ideal for building secure and scalable backend solutions.</p>
+            <p class="Angular">Angular: Angular is a comprehensive front-end framework developed by Google for building dynamic, single-page applications. It provides a full-fledged development environment with tools for data binding, dependency injection, and component-based architecture. Angular's two-way data binding and modular structure simplify the process of managing complex application states and interactions. Its CLI (Command Line Interface) streamlines development tasks such as project scaffolding and code generation, making it a strong choice for building scalable and maintainable web applications.</p>
+            <p class="AWS">AWS: Amazon Web Services (AWS) is a cloud computing platform that offers a wide range of services for hosting, deploying, and managing applications. With its scalable infrastructure, AWS allows developers to quickly scale resources up or down based on demand. Services like AWS EC2 for virtual servers, S3 for storage, and RDS for managed databases provide a robust foundation for building and maintaining web applications. AWS also includes tools for monitoring, security, and networking, making it a comprehensive solution for managing application infrastructure in the cloud.</p>
+        </div>
+
+        <div class="btncont">
+            <button id="upper">Upper</button>
+            <button id="lower">Lower</button>
+            <button id="plus"> +</button>
+            <button id="minus">-</button>
+        </div>
+        <input id="textd" type="range" min="10" max="40" value="16">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let circlecol = document.querySelectorAll(".circle");
+            circlecol.forEach(item => {
+                item.addEventListener("click", () => {
+                    let clickedcir = window.getComputedStyle(item).backgroundColor;
+                    document.body.style.backgroundColor = clickedcir;
+                });
+            });
+
+            const lan = document.querySelector("#lan");
+            const paragraphs = document.querySelectorAll(".content p");
+
+            lan.addEventListener('change', () => {
+                let selectedValue = lan.value;
+                paragraphs.forEach(paragraph => {
+                    paragraph.style.display = 'none';
+                });
+                const selectedParagraph = document.querySelector(`.content .${selectedValue}`);
+                if (selectedParagraph) {
+                    selectedParagraph.style.display = 'block';
+                }
+            });
+
+            let upper = document.querySelector('#upper');
+            let lower = document.querySelector('#lower');
+            let increasefont = document.querySelector('#plus');
+            let decreasefont = document.querySelector('#minus');
+            let fontsize = 16;
+
+            upper.addEventListener('click', () => {
+                document.body.style.textTransform = 'uppercase';
+                console.log('Uppercase button clicked');
+            });
+
+            lower.addEventListener('click', () => {
+                document.body.style.textTransform = 'lowercase';
+                console.log('Lowercase button clicked');
+            });
+
+            increasefont.addEventListener('click', () => {
+                fontsize += 2;
+                document.body.style.fontSize = fontsize + 'px';
+                console.log('Increase font button clicked');
+            });
+
+            decreasefont.addEventListener('click', () => {
+                fontsize -= 2;
+                document.body.style.fontSize = fontsize + 'px';
+                console.log('Decrease font button clicked');
+            });
+
+            let range = document.querySelector('#textd');
+            range.addEventListener('input', () => {
+                fontsize = parseInt(range.value);
+                document.body.style.fontSize = fontsize + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
